@@ -14,7 +14,7 @@ namespace Innocalc.Models
 		const int oil_rho = 875;
 		const float oil_lambda = .109f;
 		const int air_pressure = 101;
-		float air_rho, air_c, air_v, eps1 = 1.23f;
+		float air_rho, air_c, air_v, eps1 = 1.23f; // Поиск по файлу у eps1
 		double wall_Prandtl;
 
 		public Calc(int t_air_out, int t_air_in)
@@ -39,8 +39,8 @@ namespace Innocalc.Models
 			wall_Prandtl = p; // возможно поменяется
 			return p;
 		}
-		public double c_Oil_Speed(double V, int n12, int d, float s) => 4 * V / (n12 * Math.PI * (d - 2 * s) * (d - 2 * s));
-		public double c_Oil_Reynolds(double Vm1, int d, float s) => (Vm1 * (d - 2 * s)) / oil_v;
+		public double c_Oil_Speed(double V, int n12, float d, float s) => 4 * V / (n12 * Math.PI * (d - 2 * s) * (d - 2 * s));
+		public double c_Oil_Reynolds(double Vm1, float d, float s) => (Vm1 * (d - 2 * s)) / oil_v;
 		public double c_Oil_Nusselt(double oil_Prandtl, double oil_Reynolds) => 0.021 * Math.Pow(oil_Reynolds, 0.8) * Math.Pow(oil_Prandtl, 0.43) * Math.Pow((oil_Prandtl / wall_Prandtl), 0.25) * eps1;
 	}
 

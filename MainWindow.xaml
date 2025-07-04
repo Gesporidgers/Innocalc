@@ -79,23 +79,23 @@
                     <ColumnDefinition Width="0.5*"/>
                 </Grid.ColumnDefinitions>
                 <Label Content="Высота: " Grid.Row="0" HorizontalAlignment="Right"/>
-                <TextBox Grid.Row="0" Grid.Column="1"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=H, Mode=TwoWay}"/>
                 <Label Content="Ширина: " Grid.Row="1" HorizontalAlignment="Right"/>
-                <TextBox Grid.Row="1" Grid.Column="1"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=B, Mode=TwoWay}"/>
                 <Label Content="Глубина: " Grid.Row="2" HorizontalAlignment="Right"/>
-                <TextBox Grid.Row="2" Grid.Column="1"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Z, Mode=TwoWay}"/>
                 <Label Content="Наружный диаметр трубки: " Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right"/>
-                <TextBox Grid.Row="0" Grid.Column="3"/>
+                <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding Path=D_out, Mode=TwoWay}"/>
                 <Label Content="Толщина трубки: " Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right"/>
-                <TextBox Grid.Row="1" Grid.Column="3"/>
+                <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Path=S, Mode=TwoWay}"/>
                 <Label Content="Ширина ребра: " Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right"/>
-                <TextBox Grid.Row="2" Grid.Column="3"/>
+                <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding Path=Beta, Mode=TwoWay}"/>
                 <Label Content="Шаг рёбер: " Grid.Row="3" Grid.Column="2" HorizontalAlignment="Right"/>
-                <TextBox Grid.Row="3" Grid.Column="3"/>
+                <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding Path=U, Mode=TwoWay}"/>
                 <Label Content="Число труб охваченных пластиной: " Grid.Row="4" Grid.Column="2" HorizontalAlignment="Right"/>
-                <TextBox Grid.Row="4" Grid.Column="3"/>
+                <TextBox Grid.Row="4" Grid.Column="3" Text="{Binding Path=N11, Mode=TwoWay}"/>
                 <Label Content="Число трубок на 1 коллектор: " Grid.Row="5" Grid.Column="2" HorizontalAlignment="Right"/>
-                <TextBox Grid.Row="5" Grid.Column="3"/>
+                <TextBox Grid.Row="5" Grid.Column="3" Text="{Binding Path=N12, Mode=TwoWay}"/>
             </Grid>
         </GroupBox>
         <Grid>
@@ -113,7 +113,7 @@
             <Label Content="Тепловой поток от воздуха" Grid.Column="0"/>
             <TextBox Grid.Column="1" TextWrapping="Wrap" Width="120" ToolTip="Тепловой поток от воздуха" Text="{Binding Path=W_air, Mode=OneWay}" IsReadOnly="True"/>
             <Label Content="Объёмный расход масла" Grid.Column="0" Grid.Row="1"/>
-            <TextBox Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Width="120" ToolTip="Расход масла" Text="{Binding Path=Oil_v, Mode=OneWay}" IsReadOnly="True"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Width="120" ToolTip="Расход масла" Text="{Binding Path=Oil_v, Mode=OneWay}" IsReadOnly="True" />
             <Button Content="Сalc" Command="{Binding Path=CalcVCommand}" Grid.Column="2" Grid.Row="1" Width="55"/>
             <Label Content="Средняя разность температур" Grid.Row="2"/>
             <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=Dt, Mode=OneWay}"/>
@@ -122,6 +122,7 @@
                 <Button Content="Сalc" Command="{Binding Path=CalcDtCommand}" Width="55"/>
             </WrapPanel>
         </Grid>
-        
+        <Button Content="Рассчитать геометрию" Margin="20" Command="{Binding Path=CalcGeoCommand}"/>
+
     </StackPanel>
 </Window>

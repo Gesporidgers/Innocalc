@@ -37,6 +37,7 @@ namespace Innocalc
 		private ICommand calc_W;
 		private ICommand calc_V;
 		private ICommand calc_dT;
+		private ICommand calc_Geometry;
 
 		public int T_oil_in
 		{
@@ -231,7 +232,7 @@ namespace Innocalc
 		{
 			get
 			{
-				return calc_V ??= new RelayCommand(_ => true, _ => Oil_v = Math.Round(calc.c_V_oil(W_air, T_oil_in, T_oil_out) * 10000, 3)); // Какие единицы измерения надо?
+				return calc_V ??= new RelayCommand(_ => true, _ => Oil_v = calc.c_V_oil(W_air, T_oil_in, T_oil_out)); // Какие единицы измерения надо?
 			}
 		}
 
@@ -240,6 +241,20 @@ namespace Innocalc
 			get
 			{
 				return calc_dT ??= new RelayCommand(_ => true, _ => Dt = Selected.method(T_air_in + 273, T_air_out + 273, T_oil_in + 273, T_oil_out + 273));
+			}
+		}
+	
+		public ICommand CalcGeoCommand
+		{
+			get
+			{
+				return calc_Geometry ??= new RelayCommand(_ => true, _ =>
+				{
+					double Pr_o = calc.c_Oil_Prandtl();
+					double Vm1 = calc.c_Oil_Speed(Oil_v, N12, D_out*.001f, S*.001f);
+					double Re_o = calc.c_Oil_Reynolds(Vm1, D_out*.001f, S*.001f);
+					double Nuss = calc.c_Oil_Nusselt(Pr_o, Re_o);
+				});
 			}
 		}
 	}
