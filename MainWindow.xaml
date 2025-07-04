@@ -71,12 +71,16 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions >
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="0.5*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width=".25*"/>
+                    <ColumnDefinition Width=".75*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Label Content="Высота: " Grid.Row="0" HorizontalAlignment="Right"/>
                 <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=H, Mode=TwoWay}"/>
@@ -96,6 +100,12 @@
                 <TextBox Grid.Row="4" Grid.Column="3" Text="{Binding Path=N11, Mode=TwoWay}"/>
                 <Label Content="Число трубок на 1 коллектор: " Grid.Row="5" Grid.Column="2" HorizontalAlignment="Right"/>
                 <TextBox Grid.Row="5" Grid.Column="3" Text="{Binding Path=N12, Mode=TwoWay}"/>
+                <GridSplitter Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="4" Height=".75" HorizontalAlignment="Stretch" Background="#FFD5DFE5" Margin="0,5,0,0" />
+                <Label Content="Коэффициенты для пучка" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="4" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
+                <controls:FormulaControl Formula="S_1" Grid.Column="0" Grid.Row="8" HorizontalAlignment="Center"/>
+                <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding Path=S1,Mode=TwoWay}"/>
+                <controls:FormulaControl Formula="S_2" Grid.Column="2" Grid.Row="8" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+                <TextBox Grid.Row="8" Grid.Column="3" Text="{Binding Path=S2,Mode=TwoWay}"/>
             </Grid>
         </GroupBox>
         <Grid>

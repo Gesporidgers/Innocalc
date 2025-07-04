@@ -29,6 +29,8 @@ namespace Innocalc
 		private double _w_air;
 		private double _oil_v;
 		private double _dT;
+		private float _s1;
+		private float _s2;
 		private TempCalcMethod _selected;
 
 		Calc calc;
@@ -176,6 +178,24 @@ namespace Innocalc
 				OnPropertyChanged(nameof(N12));
 			}
 		}
+		public float S1
+		{
+			get => _s1;
+			set
+			{
+				_s1 = value;
+				OnPropertyChanged(nameof(S1));
+			}
+		}
+		public float S2
+		{
+			get => _s2;
+			set
+			{
+				_s2 = value;
+				OnPropertyChanged(nameof(S2));
+			}
+		}
 		public double W_air
 		{
 			get => _w_air;
@@ -243,17 +263,24 @@ namespace Innocalc
 				return calc_dT ??= new RelayCommand(_ => true, _ => Dt = Selected.method(T_air_in + 273, T_air_out + 273, T_oil_in + 273, T_oil_out + 273));
 			}
 		}
-	
-		public ICommand CalcGeoCommand
+
+		public ICommand CalcGeoCommand				// Возможно выполнять все расчёты в параллельке для быстроты вычислений?
 		{
 			get
 			{
 				return calc_Geometry ??= new RelayCommand(_ => true, _ =>
 				{
 					double Pr_o = calc.c_Oil_Prandtl();
-					double Vm1 = calc.c_Oil_Speed(Oil_v, N12, D_out*.001f, S*.001f);
-					double Re_o = calc.c_Oil_Reynolds(Vm1, D_out*.001f, S*.001f);
+					double Vm1 = calc.c_Oil_Speed(Oil_v, N12, D_out * .001f, S * .001f);
+					double Re_o = calc.c_Oil_Reynolds(Vm1, D_out * .001f, S * .001f);
 					double Nuss = calc.c_Oil_Nusselt(Pr_o, Re_o);
+					double alpha_o = calc.c_Oil_HeatTransfer(Nuss, D_out * .001f, S * .001f);
+					double alpha_o2 = calc.c_Oil_HeatTransfer2(alpha_o);
+					double Cs = Math.Pow((S1 - D_out) / (S2 - D_out), 0.1);
+					float air_s = H * .001f * B * .001f, b_n = N11 * S1 * .001f, H_n = S2 * .001f;
+					double live_sec = calc.c_Live_section(air_s, S1 * .001f, D_out * .001f, Beta*.001f, U * .001f);
+					double Pr_a = calc.c_Air_Prandtl();
+
 				});
 			}
 		}

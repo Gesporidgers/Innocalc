@@ -9,13 +9,19 @@ namespace Innocalc.Models
 {
 	class Calc
 	{
+		// Константы для масла
 		const float oil_c = 2.05f * 10 * 10 * 10;
 		const double oil_v = 1.38f * .000001f;
 		const int oil_rho = 875;
 		const float oil_lambda = .109f;
-		const int air_pressure = 101;
-		float air_rho, air_c, air_v, eps1 = 1.23f; // Поиск по файлу у eps1
+		const int air_pressure = 101; // кПа
+
+		float air_rho, air_c, air_v, eps1 = 1.23f, eps2 = .6f, air_lambda; // Поиск по файлу у eps1
 		double wall_Prandtl;
+
+		// Константы для пучка
+		const float c1 = .36f, Cz = 1f, m1 = .5f;
+
 
 		public Calc(int t_air_out, int t_air_in)
 		{
@@ -25,10 +31,13 @@ namespace Innocalc.Models
 			float vout = FileSearcher.Search(t_air_out, "air_viscosity.json");
 			float cin = FileSearcher.Search(t_air_in, "air_thermal_capacity.json");
 			float cout = FileSearcher.Search(t_air_in, "air_thermal_capacity.json");
+			float lin = FileSearcher.Search(t_air_in, "air_thermal_conductivity.json");
+			float lout = FileSearcher.Search(t_air_out, "air_thermal_conductivity.json");
 
 			air_rho = (din + dout) / 2;
 			air_v = ((vin + vout) / 2) * .00001f;
 			air_c = ((cin + cout) / 2) * 1000;
+			air_lambda = (lin + lout) / 2;
 		}
 
 		public double c_W_air(int V, int t_air_out, int t_air_in) => (V / 3600.0) * air_rho * ((t_air_out + 273) - (t_air_in + 273)) * air_c;
@@ -42,6 +51,10 @@ namespace Innocalc.Models
 		public double c_Oil_Speed(double V, int n12, float d, float s) => 4 * V / (n12 * Math.PI * (d - 2 * s) * (d - 2 * s));
 		public double c_Oil_Reynolds(double Vm1, float d, float s) => (Vm1 * (d - 2 * s)) / oil_v;
 		public double c_Oil_Nusselt(double oil_Prandtl, double oil_Reynolds) => 0.021 * Math.Pow(oil_Reynolds, 0.8) * Math.Pow(oil_Prandtl, 0.43) * Math.Pow((oil_Prandtl / wall_Prandtl), 0.25) * eps1;
+		public double c_Oil_HeatTransfer(double Nusselt, float d, float s) => (Nusselt * oil_lambda) / (d - 2 * s);
+		public double c_Oil_HeatTransfer2(double alpha_o) => alpha_o * eps2;
+		public double c_Air_Prandtl() => (air_c * air_v * air_rho) / air_lambda;
+		public double c_Live_section(float air_s, float S1, float d, float beta, float u) => air_s * (((S1 - d) * (u - beta)) / (S1 * u));
 	}
 
 	class TempCalcMethod
