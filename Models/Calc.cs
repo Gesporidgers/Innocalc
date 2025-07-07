@@ -70,6 +70,15 @@ namespace Innocalc.Models
 			((S1 - d) * (u - beta)) /
 			((S1 - d) + (u - beta)));
 		public double c_Air_Reynolds(double air_speed, double d_h) => (air_speed * d_h) / air_v;
+		public double c_Beta_out(float S1, float S22, float d, float beta, float u, float s)
+		{
+			double a = 2 * (S1 * S22 - 0.785 * d * d) / u;
+			double b = Math.PI * d * (1 - beta / u);
+			return (a + b) / 
+				(Math.PI * (d - s * 2));
+		}
+		public double c_Air_Nusselt(double Cs, double beta_out, double Re_a, double n_p) => c1 * Cs * Cz * Math.Pow(beta_out, -0.5) * Math.Pow(Re_a, n_p);
+		public double c_Air_Heat_Transfer(double Nu_a, double d_h) => Nu_a * air_lambda / d_h;
 
 	}
 

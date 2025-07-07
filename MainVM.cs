@@ -272,7 +272,7 @@ namespace Innocalc
 				{
 					double Pr_o = calc.c_Oil_Prandtl();
 					double Vm1 = calc.c_Oil_Speed(Oil_v, N12, D_out * .001f, S * .001f);
-					double Re_o = calc.c_Oil_Reynolds(Vm1, D_out * .001f, S * .001f);
+					double Re_o = calc.c_Oil_Reynolds(Vm1, D_out * .001f, S * .001f);	// позже должно быть предупреждение о режиме течения
 					double Nuss = calc.c_Oil_Nusselt(Pr_o, Re_o);
 					double alpha_o = calc.c_Oil_HeatTransfer(Nuss, D_out * .001f, S * .001f);
 					double alpha_o2 = calc.c_Oil_HeatTransfer2(alpha_o);
@@ -285,6 +285,7 @@ namespace Innocalc
 					double F_br = calc.c_Surface_betwRib(D_out, Beta, U);
 					double d_h = calc.c_Air_HydroDiameter(S1, D_out, U, Beta);
 					double Re_a = calc.c_Air_Reynolds(air_speed, d_h*.001);
+
 				});
 			}
 		}
