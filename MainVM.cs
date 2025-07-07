@@ -277,10 +277,14 @@ namespace Innocalc
 					double alpha_o = calc.c_Oil_HeatTransfer(Nuss, D_out * .001f, S * .001f);
 					double alpha_o2 = calc.c_Oil_HeatTransfer2(alpha_o);
 					double Cs = Math.Pow((S1 - D_out) / (S2 - D_out), 0.1);
-					float air_s = H * .001f * B * .001f, b_n = N11 * S1 * .001f, H_n = S2 * .001f;
+					float air_s = H * .001f * B * .001f, b_n = N11 * S1, H_n = S2;
 					double live_sec = calc.c_Live_section(air_s, S1 * .001f, D_out * .001f, Beta*.001f, U * .001f);
+					double air_speed = Air_v / live_sec / 3600;
 					double Pr_a = calc.c_Air_Prandtl();
-
+					double F_r = calc.c_Rib_Surface(b_n, H_n, N11, D_out, U);
+					double F_br = calc.c_Surface_betwRib(D_out, Beta, U);
+					double d_h = calc.c_Air_HydroDiameter(S1, D_out, U, Beta);
+					double Re_a = calc.c_Air_Reynolds(air_speed, d_h*.001);
 				});
 			}
 		}
