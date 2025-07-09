@@ -31,6 +31,12 @@ namespace Innocalc
 		private double _dT;
 		private float _s1;
 		private float _s2;
+		private double _l;
+		private int _nn;
+		private double _h_final;
+		private double _z_final;
+		private double _delta_p;
+
 		private TempCalcMethod _selected;
 
 		Calc calc;
@@ -223,6 +229,55 @@ namespace Innocalc
 				OnPropertyChanged(nameof(Dt));
 			}
 		}
+		public double L
+		{
+			get => _l;
+			private set
+			{
+				_l = value;
+				OnPropertyChanged(nameof(L));
+			}
+		}
+		public int NN
+		{
+			get => _nn;
+			private set
+			{
+				NN = value;
+				OnPropertyChanged(nameof(NN));
+			}
+		}
+		public int NN_row
+		{
+			get => NN / N11;
+		}
+		public double H_final
+		{
+			get => _h_final;
+			private set
+			{
+				_h_final = value;
+				OnPropertyChanged(nameof(H_final));
+			}
+		}
+		public double Z_final
+		{
+			get => _z_final;
+			private set
+			{
+				_z_final = value;
+				OnPropertyChanged(nameof(Z_final));
+			}
+		}
+		public double Delta_P
+		{
+			get => _delta_p;
+			private set
+			{
+				_delta_p = value;
+				OnPropertyChanged(nameof(Delta_P));
+			}
+		}
 
 		public List<TempCalcMethod> Methods => TempCalcMethod.GetMethods();
 
@@ -236,7 +291,7 @@ namespace Innocalc
 			}
 		}
 
-		public ICommand CalcWCommand
+		public ICommand CalcWCommand            // сделать включение кнопки при введённых данных (видимо объём)
 		{
 			get
 			{
@@ -256,7 +311,7 @@ namespace Innocalc
 			}
 		}
 
-		public ICommand CalcDtCommand
+		public ICommand CalcDtCommand           // сделать включение кнопки при выбранном методе и введённых температурах (тут вопрос, ведь температура может быть 0)
 		{
 			get
 			{
@@ -264,7 +319,7 @@ namespace Innocalc
 			}
 		}
 
-		public ICommand CalcGeoCommand				// Возможно выполнять все расчёты в параллельке для быстроты вычислений?
+		public ICommand CalcGeoCommand              // Возможно выполнять все расчёты в параллельке для быстроты вычислений?
 		{
 			get
 			{
@@ -272,19 +327,30 @@ namespace Innocalc
 				{
 					double Pr_o = calc.c_Oil_Prandtl();
 					double Vm1 = calc.c_Oil_Speed(Oil_v, N12, D_out * .001f, S * .001f);
-					double Re_o = calc.c_Oil_Reynolds(Vm1, D_out * .001f, S * .001f);	// позже должно быть предупреждение о режиме течения
+					double Re_o = calc.c_Oil_Reynolds(Vm1, D_out * .001f, S * .001f);   // позже должно быть предупреждение о режиме течения
 					double Nuss = calc.c_Oil_Nusselt(Pr_o, Re_o);
 					double alpha_o = calc.c_Oil_HeatTransfer(Nuss, D_out * .001f, S * .001f);
 					double alpha_o2 = calc.c_Oil_HeatTransfer2(alpha_o);
 					double Cs = Math.Pow((S1 - D_out) / (S2 - D_out), 0.1);
 					float air_s = H * .001f * B * .001f, b_n = N11 * S1, H_n = S2;
-					double live_sec = calc.c_Live_section(air_s, S1 * .001f, D_out * .001f, Beta*.001f, U * .001f);
+					double live_sec = calc.c_Live_section(air_s, S1 * .001f, D_out * .001f, Beta * .001f, U * .001f);
 					double air_speed = Air_v / live_sec / 3600;
 					double Pr_a = calc.c_Air_Prandtl();
 					double F_r = calc.c_Rib_Surface(b_n, H_n, N11, D_out, U);
 					double F_br = calc.c_Surface_betwRib(D_out, Beta, U);
 					double d_h = calc.c_Air_HydroDiameter(S1, D_out, U, Beta);
-					double Re_a = calc.c_Air_Reynolds(air_speed, d_h*.001);
+					double Re_a = calc.c_Air_Reynolds(air_speed, d_h * .001);
+					double S_in = Math.PI * (D_out - S * 2);
+					double Betta = calc.c_Finnig_out(S1, S2, D_out, Beta, U, S);
+					double n_p = .6 * Math.Pow(Betta, .07);
+					double Nu_a = calc.c_Air_Nusselt(Cs, Betta, Re_a, n_p);
+					double air_alpha = calc.c_Air_Heat_Transfer(Nu_a, d_h * .001);
+					double rho1 = calc.c_Finning1(H_n, D_out, b_n);
+					double h1 = calc.c_Rib_Height(D_out * .001, rho1);
+					double m22 = calc.c_Complex_Char(air_alpha, Beta * .001f);
+					double E = calc.c_Rib_Efficiency(m22, h1);
+					double alpha1_pr = calc.c_HeatTr_to_Finning(air_alpha, F_r * .001, F_br * .001, E);
+					double K_out = calc.c_K_out(alpha1_pr, S * .001f, Betta, alpha_o2);
 
 				});
 			}
