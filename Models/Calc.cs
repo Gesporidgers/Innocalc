@@ -93,6 +93,20 @@ namespace Innocalc.Models
 		public double c_K_out(double alpha1, float s, double betta, double alpha_mp) => 
 			1 / (
 			(1 / alpha1) + (s / lamda_liq) + (betta / alpha_mp));
+		public double c_F(double Wt, double K_out, double Dt) => Wt / (K_out * Dt);         // надо будет переименовать[
+		private double Ksi(double Re_o)
+		{
+			if (Re_o < 2300)
+				return 64 / Re_o;
+			else return .3164 / Math.Pow(Re_o, .25);
+		}
+		public double c_Hydro_Resistance(double Re_o, int nn, int n12, float B, float d, float s, double Oil_speed)
+		{
+			double a = (double)(nn / n12);
+			double b = B / (d - 2 * s);
+			double c = (Oil_speed * Oil_speed * oil_rho) * 0.5;
+			return Ksi(Re_o) * a * b * c;
+		}
 	}
 
 	class TempCalcMethod

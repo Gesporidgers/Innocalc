@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Innocalc
@@ -33,9 +34,12 @@ namespace Innocalc
 		private float _s2;
 		private double _l;
 		private int _nn;
+		private int _nn_row;
 		private double _h_final;
 		private double _z_final;
 		private double _delta_p;
+
+		private Visibility _resultsVisible = Visibility.Collapsed;
 
 		private TempCalcMethod _selected;
 
@@ -243,13 +247,18 @@ namespace Innocalc
 			get => _nn;
 			private set
 			{
-				NN = value;
+				_nn = value;
 				OnPropertyChanged(nameof(NN));
 			}
 		}
 		public int NN_row
 		{
-			get => NN / N11;
+			get => _nn_row;
+			set
+			{
+				_nn_row = value;
+				OnPropertyChanged(nameof(NN_row));
+			}
 		}
 		public double H_final
 		{
@@ -276,6 +285,15 @@ namespace Innocalc
 			{
 				_delta_p = value;
 				OnPropertyChanged(nameof(Delta_P));
+			}
+		}
+		public Visibility ResultsVisible
+		{
+			get => _resultsVisible;
+			set
+			{
+				_resultsVisible = value;
+				OnPropertyChanged(nameof(ResultsVisible));
 			}
 		}
 
@@ -351,7 +369,14 @@ namespace Innocalc
 					double E = calc.c_Rib_Efficiency(m22, h1);
 					double alpha1_pr = calc.c_HeatTr_to_Finning(air_alpha, F_r * .001, F_br * .001, E);
 					double K_out = calc.c_K_out(alpha1_pr, S * .001f, Betta, alpha_o2);
-
+					double Fport = calc.c_F(W_air * 1000, K_out, Dt);
+					L = Fport / (F_br * .001 + F_r * .001);
+					NN = (int)Math.Round(L / (B * .001));   // округлять по правилам математики? потому что при исходных данных вышло 26.817 после округления 27
+					NN_row = NN / N11;
+					H_final = NN * S1 * .001 / N11;
+					Z_final = S2 * .001 * N11;
+					Delta_P = calc.c_Hydro_Resistance(Re_o, NN, N12, B*.001f, D_out * .001f, S * .001f,Vm1);
+					ResultsVisible = Visibility.Visible;
 				});
 			}
 		}
