@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Innocalc
@@ -42,6 +43,8 @@ namespace Innocalc
 		private Visibility _resultsVisible = Visibility.Collapsed;
 
 		private TempCalcMethod _selected;
+		private Measure _lengthMeasure;
+		private Measure _volumeMeasure;
 
 		Calc calc;
 
@@ -298,6 +301,8 @@ namespace Innocalc
 		}
 
 		public List<TempCalcMethod> Methods => TempCalcMethod.GetMethods();
+		public List<Measure> Len => new Length().GetMeasure();
+		public List<Measure> Vol => new Volume().GetMeasure();
 
 		public TempCalcMethod Selected
 		{
@@ -308,6 +313,29 @@ namespace Innocalc
 				OnPropertyChanged(nameof(Selected));
 			}
 		}
+		public Measure LengthMeasure
+		{
+			get => _lengthMeasure;
+			set
+			{
+				_lengthMeasure = value;
+				H_final *= (float)value.Multiplier;
+				Z_final *= (float)value.Multiplier;
+				L *= (float)value.Multiplier;
+				OnPropertyChanged(nameof(LengthMeasure));
+			}
+		}
+		public Measure VolumeMeasure
+		{
+			get => _volumeMeasure;
+			set
+			{
+				_volumeMeasure = value;
+				Oil_v *= (float)value.Multiplier;
+				OnPropertyChanged(nameof(VolumeMeasure));
+			}
+		}
+		
 
 		public ICommand CalcWCommand            // сделать включение кнопки при введённых данных (видимо объём)
 		{
@@ -316,7 +344,7 @@ namespace Innocalc
 				return calc_W ??= new RelayCommand(_ => Air_v != 0, _ =>
 				{
 					calc = new Calc(T_air_out, T_air_in);
-					W_air = Math.Round(calc.c_W_air(Air_v, T_air_out, T_air_in) / 1000, 2);
+					W_air = Math.Round(calc.c_W_air(Air_v, T_air_out, T_air_in), 2);
 				});
 			}
 		}
@@ -369,7 +397,7 @@ namespace Innocalc
 					double E = calc.c_Rib_Efficiency(m22, h1);
 					double alpha1_pr = calc.c_HeatTr_to_Finning(air_alpha, F_r * .001, F_br * .001, E);
 					double K_out = calc.c_K_out(alpha1_pr, S * .001f, Betta, alpha_o2);
-					double Fport = calc.c_F(W_air * 1000, K_out, Dt);
+					double Fport = calc.c_F(W_air, K_out, Dt);
 					L = Fport / (F_br * .001 + F_r * .001);
 					NN = (int)Math.Round(L / (B * .001));   // округлять по правилам математики? потому что при исходных данных вышло 26.817 после округления 27
 					NN_row = NN / N11;
@@ -379,6 +407,11 @@ namespace Innocalc
 					ResultsVisible = Visibility.Visible;
 				});
 			}
+		}
+		public MainVM()
+		{
+			LengthMeasure = Len[1]; 
+			VolumeMeasure = Vol[0];
 		}
 	}
 }
