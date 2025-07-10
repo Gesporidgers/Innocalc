@@ -313,7 +313,7 @@ namespace Innocalc
 		{
 			get
 			{
-				return calc_W ??= new RelayCommand(_ => true, _ =>
+				return calc_W ??= new RelayCommand(_ => Air_v != 0, _ =>
 				{
 					calc = new Calc(T_air_out, T_air_in);
 					W_air = Math.Round(calc.c_W_air(Air_v, T_air_out, T_air_in) / 1000, 2);
@@ -325,7 +325,7 @@ namespace Innocalc
 		{
 			get
 			{
-				return calc_V ??= new RelayCommand(_ => true, _ => Oil_v = calc.c_V_oil(W_air, T_oil_in, T_oil_out)); // Какие единицы измерения надо?
+				return calc_V ??= new RelayCommand(_ => W_air != 0, _ => Oil_v = calc.c_V_oil(W_air, T_oil_in, T_oil_out)); // Какие единицы измерения надо?
 			}
 		}
 
@@ -333,7 +333,7 @@ namespace Innocalc
 		{
 			get
 			{
-				return calc_dT ??= new RelayCommand(_ => true, _ => Dt = Selected.method(T_air_in + 273, T_air_out + 273, T_oil_in + 273, T_oil_out + 273));
+				return calc_dT ??= new RelayCommand(_ => Selected != null, _ => Dt = Selected.method(T_air_in + 273, T_air_out + 273, T_oil_in + 273, T_oil_out + 273));
 			}
 		}
 
@@ -341,7 +341,7 @@ namespace Innocalc
 		{
 			get
 			{
-				return calc_Geometry ??= new RelayCommand(_ => true, _ =>
+				return calc_Geometry ??= new RelayCommand(_ => Oil_v != 0 && D_out != 0 && N12 != 0 && N11 != 0 && S1 != 0 && S2 != 0 && S != 0 && Beta != 0 && U != 0 && H != 0 && Z != 0 && B != 0 && Dt != 0 && W_air != 0, _ =>
 				{
 					double Pr_o = calc.c_Oil_Prandtl();
 					double Vm1 = calc.c_Oil_Speed(Oil_v, N12, D_out * .001f, S * .001f);
@@ -375,7 +375,7 @@ namespace Innocalc
 					NN_row = NN / N11;
 					H_final = NN * S1 * .001 / N11;
 					Z_final = S2 * .001 * N11;
-					Delta_P = calc.c_Hydro_Resistance(Re_o, NN, N12, B*.001f, D_out * .001f, S * .001f,Vm1);
+					Delta_P = calc.c_Hydro_Resistance(Re_o, NN, N12, B * .001f, D_out * .001f, S * .001f,Vm1);
 					ResultsVisible = Visibility.Visible;
 				});
 			}
