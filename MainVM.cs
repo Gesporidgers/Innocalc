@@ -43,8 +43,7 @@ namespace Innocalc
 		private Visibility _resultsVisible = Visibility.Collapsed;
 
 		private TempCalcMethod _selected;
-		private Measure _lengthMeasure;
-		private Measure _volumeMeasure;
+		private string _len;
 
 		Calc calc;
 
@@ -301,9 +300,17 @@ namespace Innocalc
 		}
 
 		public List<TempCalcMethod> Methods => TempCalcMethod.GetMethods();
-		public List<Measure> Len => new Length().GetMeasure();
-		public List<Measure> Vol => new Volume().GetMeasure();
-
+		public string[] Len => [ "m.", "cm.", "mm." ];
+		public string LengthMeasure
+		{
+			get => _len;
+			set
+			{
+				H_final = Innocalc.Utility.LengthConverter.Convert(_len, value, H_final);
+				_len = value;
+				OnPropertyChanged(nameof(LengthMeasure));
+			}
+		}
 		public TempCalcMethod Selected
 		{
 			get => _selected;
@@ -311,28 +318,6 @@ namespace Innocalc
 			{
 				_selected = value;
 				OnPropertyChanged(nameof(Selected));
-			}
-		}
-		public Measure LengthMeasure
-		{
-			get => _lengthMeasure;
-			set
-			{
-				_lengthMeasure = value;
-				H_final *= (float)value.Multiplier;
-				Z_final *= (float)value.Multiplier;
-				L *= (float)value.Multiplier;
-				OnPropertyChanged(nameof(LengthMeasure));
-			}
-		}
-		public Measure VolumeMeasure
-		{
-			get => _volumeMeasure;
-			set
-			{
-				_volumeMeasure = value;
-				Oil_v *= (float)value.Multiplier;
-				OnPropertyChanged(nameof(VolumeMeasure));
 			}
 		}
 		
@@ -410,8 +395,8 @@ namespace Innocalc
 		}
 		public MainVM()
 		{
-			LengthMeasure = Len[1]; 
-			VolumeMeasure = Vol[0];
+			_len = Len[0]; 
+			
 		}
 	}
 }

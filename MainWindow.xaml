@@ -11,7 +11,7 @@
     <StackPanel>
         <ToolBar>
             <Label Content="Единицы измерения длины"/>
-            <ComboBox ItemsSource="{Binding Path=Len}" DisplayMemberPath="Name" Width="53" SelectedValue="{Binding LengthMeasure}"/>
+            <ComboBox ItemsSource="{Binding Path=Len}"  Width="53" SelectedValue="{Binding LengthMeasure}"/>
             <Separator/>
             <Label Content="Единицы измерения времени"/>
             <ComboBox Width="53"/>
