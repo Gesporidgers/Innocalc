@@ -301,7 +301,9 @@ namespace Innocalc
 		}
 
 		public List<TempCalcMethod> Methods => TempCalcMethod.GetMethods();
-		public string[] Len => [ "m.", "cm.", "mm." ];
+		public string[] Len => ["m.", "cm.", "mm."];
+		public string[] Time => ["hr.", "min.", "s."];
+
 		public string LengthMeasure
 		{
 			get => _len;
@@ -322,7 +324,7 @@ namespace Innocalc
 				OnPropertyChanged(nameof(Selected));
 			}
 		}
-		
+
 
 		public ICommand CalcWCommand            // сделать включение кнопки при введённых данных (видимо объём)
 		{
@@ -390,15 +392,15 @@ namespace Innocalc
 					NN_row = NN / N11;
 					H_final = NN * S1 * .001 / N11;
 					Z_final = S2 * .001 * N11;
-					Delta_P = calc.c_Hydro_Resistance(Re_o, NN, N12, B * .001f, D_out * .001f, S * .001f,Vm1);
+					Delta_P = calc.c_Hydro_Resistance(Re_o, NN, N12, B * .001f, D_out * .001f, S * .001f, Vm1);
 					ResultsVisible = Visibility.Visible;
 				});
 			}
 		}
 		public MainVM()
 		{
-			_len = Len[0]; 
-			
+			_len = Len[0];
+
 		}
 	}
 }
