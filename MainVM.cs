@@ -46,6 +46,7 @@ namespace Innocalc
 		private string _len;
 
 		Calc calc;
+		Models.LengthConverter conv1 = new Models.LengthConverter();
 
 
 		private ICommand calc_W;
@@ -306,7 +307,8 @@ namespace Innocalc
 			get => _len;
 			set
 			{
-				H_final = Innocalc.Utility.LengthConverter.Convert(_len, value, H_final);
+				H_final = conv1.Convert(_len, value, H_final);
+				Z_final = conv1.Convert(_len, value, Z_final);
 				_len = value;
 				OnPropertyChanged(nameof(LengthMeasure));
 			}
