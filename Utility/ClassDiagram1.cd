@@ -2,45 +2,62 @@
 <ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access">
   <Class Name="Innocalc.MainVM" Collapsed="true">
     <Position X="7.75" Y="5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
       <HashCode>kAACqAIBQAYSCIAQICLAIQyQEAdGBAMKDQAQTEeCYkM=</HashCode>
       <FileName>MainVM.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="calc" />
+      <Property Name="Selected" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Methods" />
+    </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="Innocalc.Models.Calc">
-    <Position X="11" Y="3.75" Width="1.5" />
+  <Class Name="Innocalc.Models.Calc" Collapsed="true">
+    <Position X="11" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>HAAAEBMIhACgAAAEAAJEAAwAAAEQBEACAiBRIA4EkSw=</HashCode>
       <FileName>Models\Calc.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Innocalc.Models.TempCalcMethod" Collapsed="true">
-    <Position X="12.5" Y="6" Width="1.5" />
-    <NestedTypes>
-      <Delegate Name="Innocalc.Models.TempCalcMethod.CalculateTemp" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Models\Calc.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Delegate>
-    </NestedTypes>
+    <Position X="11" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QAAAAAAAAAAAACAAAAAAAIQAAAAAAAAAAAAAAAAAAUA=</HashCode>
       <FileName>Models\Calc.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Innocalc.Utility.FileSearcher" Collapsed="true">
-    <Position X="14" Y="3.75" Width="1.5" />
+    <Position X="11" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>Utility\FileSearcher.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Innocalc.Utility.BindHelper" Collapsed="true">
-    <Position X="4.75" Y="6" Width="1.5" />
+    <Position X="4.75" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Utility\BindHelper.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Innocalc.MainWindow" Collapsed="true">
+    <Position X="7.75" Y="2.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Public" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="vm" />
+    </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
   <Font Name="Segoe UI" Size="9" />
