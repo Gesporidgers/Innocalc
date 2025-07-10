@@ -16,9 +16,10 @@ namespace Innocalc;
 /// </summary>
 public partial class MainWindow : Window
 {
+    MainVM vm;
     public MainWindow()
     {
-        MainVM vm = new MainVM();
+        vm = new MainVM();
         DataContext = vm;
         InitializeComponent();
     }

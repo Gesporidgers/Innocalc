@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access">
+  <Class Name="Innocalc.MainVM" Collapsed="true">
+    <Position X="7.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>kAACqAIBQAYSCIAQICLAIQyQEAdGBAMKDQAQTEeCYkM=</HashCode>
+      <FileName>MainVM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Innocalc.Models.Calc">
+    <Position X="11" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>HAAAEBMIhACgAAAEAAJEAAwAAAEQBEACAiBRIA4EkSw=</HashCode>
+      <FileName>Models\Calc.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Innocalc.Models.TempCalcMethod" Collapsed="true">
+    <Position X="12.5" Y="6" Width="1.5" />
+    <NestedTypes>
+      <Delegate Name="Innocalc.Models.TempCalcMethod.CalculateTemp" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Models\Calc.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAACAAAAAAAIQAAAAAAAAAAAAAAAAAAUA=</HashCode>
+      <FileName>Models\Calc.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Innocalc.Utility.FileSearcher" Collapsed="true">
+    <Position X="14" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>Utility\FileSearcher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Innocalc.Utility.BindHelper" Collapsed="true">
+    <Position X="4.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utility\BindHelper.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
