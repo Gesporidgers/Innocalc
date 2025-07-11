@@ -14,10 +14,10 @@
             <ComboBox ItemsSource="{Binding Path=Len}"  Width="53" SelectedValue="{Binding LengthMeasure}"/>
             <Separator/>
             <Label Content="Единицы измерения времени"/>
-            <ComboBox Width="53"/>
+            <ComboBox Width="53" ItemsSource="{Binding Path=Time}" SelectedValue="{Binding TimeMeasure}"/>
             <Separator/>
             <Label Content="Единицы измерения объёма" />
-            <ComboBox ItemsSource="{Binding Path=Vol}" DisplayMemberPath="Name" Width="53" SelectedValue="{Binding VolumeMeasure}"/>
+            <ComboBox/>
             <Separator/>
             <!--<Label Content="Единицы измерения потока"/>
             <ComboBox Width="53"/>-->
