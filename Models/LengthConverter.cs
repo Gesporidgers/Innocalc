@@ -23,8 +23,6 @@ namespace Innocalc.Models
 					case "mm.": value *= 1000; break;
 					case "cm.": value *= 100; break;
 				}
-			else return value;
-			fromUnit = toUnit;
 			return value;
 		}
 	}
