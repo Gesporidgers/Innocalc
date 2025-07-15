@@ -17,7 +17,7 @@
             <ComboBox Width="53" ItemsSource="{Binding Path=Time}" SelectedValue="{Binding TimeMeasure}"/>
             <Separator/>
             <Label Content="Единицы измерения объёма" />
-            <ComboBox/>
+            <ComboBox Width="53" ItemsSource="{Binding Path=Vol}" SelectedValue="{Binding VolumeMeasure}"/>
             <Separator/>
             <!--<Label Content="Единицы измерения потока"/>
             <ComboBox Width="53"/>-->

@@ -45,11 +45,12 @@ namespace Innocalc
 		private TempCalcMethod _selected;
 		private string _len;
 		private string _time;
+		private string _vol;
 
 		Calc calc;
 		Models.LengthConverter conv1 = new Models.LengthConverter();
 		Models.TimeConverter conv2 = new Models.TimeConverter();
-
+		Models.VolumeConverter conv3 = new Models.VolumeConverter();
 
 		private ICommand calc_W;
 		private ICommand calc_V;
@@ -305,6 +306,7 @@ namespace Innocalc
 		public List<TempCalcMethod> Methods => TempCalcMethod.GetMethods();
 		public string[] Len => ["m.", "cm.", "mm."];
 		public string[] Time => ["hr.", "min.", "s."];
+		public string[] Vol => ["м³", "l."];
 
 		public string LengthMeasure
 		{
@@ -325,6 +327,16 @@ namespace Innocalc
 				Oil_v = conv2.Convert(_time, value, Oil_v);
 				_time = value;
 				OnPropertyChanged(nameof(TimeMeasure));
+			}
+		}
+		public string VolumeMeasure
+		{
+			get => _vol;
+			set
+			{
+				Oil_v = conv3.Convert(_vol, value, Oil_v);
+				_vol = value;
+				OnPropertyChanged(nameof(VolumeMeasure));
 			}
 		}
 		public TempCalcMethod Selected
@@ -372,8 +384,10 @@ namespace Innocalc
 			{
 				return calc_Geometry ??= new RelayCommand(_ => Oil_v != 0 && D_out != 0 && N12 != 0 && N11 != 0 && S1 != 0 && S2 != 0 && S != 0 && Beta != 0 && U != 0 && H != 0 && Z != 0 && B != 0 && Dt != 0 && W_air != 0, _ =>
 				{
+					double Oil_v_src = conv2.Convert(TimeMeasure, "s.", Oil_v);
+					Oil_v_src = conv3.Convert(VolumeMeasure, "м³", Oil_v_src);
 					double Pr_o = calc.c_Oil_Prandtl();
-					double Vm1 = calc.c_Oil_Speed(Oil_v, N12, D_out * .001f, S * .001f);
+					double Vm1 = calc.c_Oil_Speed(Oil_v_src, N12, D_out * .001f, S * .001f);
 					double Re_o = calc.c_Oil_Reynolds(Vm1, D_out * .001f, S * .001f);   // позже должно быть предупреждение о режиме течения
 					double Nuss = calc.c_Oil_Nusselt(Pr_o, Re_o);
 					double alpha_o = calc.c_Oil_HeatTransfer(Nuss, D_out * .001f, S * .001f);
@@ -413,6 +427,7 @@ namespace Innocalc
 		{
 			_len = Len[0];
 			_time = Time[2];
+			_vol = Vol[0];
 		}
 	}
 }

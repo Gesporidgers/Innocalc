@@ -5,19 +5,22 @@
     <Compartments>
       <Compartment Name="Private" Collapsed="true" />
     </Compartments>
-    <AssociationLine Name="Methods" Type="Innocalc.Models.TempCalcMethod" FixedToPoint="true">
+    <AssociationLine Name="conv3" Type="Innocalc.Models.VolumeConverter" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="4.5" Y="4.188" />
-        <Point X="3" Y="4.188" />
+        <Point X="5.438" Y="4.441" />
+        <Point X="5.438" Y="5.469" />
+        <Point X="7.5" Y="5.469" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>kAACqAIBwAYSCICQICLAIQyQkAdGBAMKDQAQTEeCY0M=</HashCode>
+      <HashCode>kAECqAIBwAZyCICQICrAIQyQmAdmBAMKDQARTEeCY0M=</HashCode>
       <FileName>MainVM.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="calc" />
       <Field Name="conv1" />
+      <Field Name="conv2" />
+      <Field Name="conv3" />
       <Property Name="Selected" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
@@ -73,7 +76,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Innocalc.Models.LengthConverter" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="7.5" Y="4.25" Width="1.5" />
+    <Position X="7.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\LengthConverter.cs</FileName>
@@ -81,10 +84,18 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Innocalc.Models.TimeConverter" Collapsed="true">
-    <Position X="7.5" Y="5.25" Width="1.5" />
+    <Position X="7.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\TimeConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Innocalc.Models.VolumeConverter" Collapsed="true">
+    <Position X="7.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\VolumeConverter.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
