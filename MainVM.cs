@@ -309,7 +309,7 @@ namespace Innocalc
 			}
 		}
 
-		public ICommand CalcWCommand            // сделать включение кнопки при введённых данных (видимо объём)
+		public ICommand CalcWCommand           
 		{
 			get
 			{
@@ -325,11 +325,11 @@ namespace Innocalc
 		{
 			get
 			{
-				return calc_V ??= new RelayCommand(_ => W_air != 0, _ => Oil_v = calc.c_V_oil(W_air, T_oil_in, T_oil_out)); // Какие единицы измерения надо?
+				return calc_V ??= new RelayCommand(_ => W_air != 0, _ => Oil_v = calc.c_V_oil(W_air, T_oil_in, T_oil_out)); 
 			}
 		}
 
-		public ICommand CalcDtCommand           // сделать включение кнопки при выбранном методе и введённых температурах (тут вопрос, ведь температура может быть 0)
+		public ICommand CalcDtCommand         
 		{
 			get
 			{
@@ -337,7 +337,7 @@ namespace Innocalc
 			}
 		}
 
-		public ICommand CalcGeoCommand              // Возможно выполнять все расчёты в параллельке для быстроты вычислений?
+		public ICommand CalcGeoCommand          
 		{
 			get
 			{
@@ -371,7 +371,7 @@ namespace Innocalc
 					double K_out = calc.c_K_out(alpha1_pr, S * .001f, Betta, alpha_o2);
 					double Fport = calc.c_F(W_air * 1000, K_out, Dt);
 					L = Fport / (F_br * .001 + F_r * .001);
-					NN = (int)Math.Round(L / (B * .001));   // округлять по правилам математики? потому что при исходных данных вышло 26.817 после округления 27
+					NN = (int)Math.Round(L / (B * .001));
 					NN_row = NN / N11;
 					H_final = NN * S1 * .001 / N11;
 					Z_final = S2 * .001 * N11;
