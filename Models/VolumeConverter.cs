@@ -11,6 +11,8 @@ namespace Innocalc.Models
     {
 		public double Convert(string fromUnit, string toUnit, double value)
 		{
+			if (fromUnit == toUnit)
+				return value;
 			if (fromUnit != "м³")
 				value /= 1000;
 			else

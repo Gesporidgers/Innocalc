@@ -313,6 +313,7 @@ namespace Innocalc
 			get => _len;
 			set
 			{
+				L = conv1.Convert(_len, value, L);
 				H_final = conv1.Convert(_len, value, H_final);
 				Z_final = conv1.Convert(_len, value, Z_final);
 				_len = value;
