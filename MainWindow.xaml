@@ -150,6 +150,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -171,6 +172,10 @@
             <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Path=Z_final,Mode=OneWay}"/>
             <Label Content="Гидравлическое сопротивление по трубе" Grid.Row="5"/>
             <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Path=Delta_P,Mode=OneWay}"/>
+            <Label Content="m." Grid.Row="0" Grid.Column="2"/>
+            <Label Content="m." Grid.Row="3" Grid.Column="2"/>
+            <Label Content="m." Grid.Row="4" Grid.Column="2"/>
+            <Label Content="Pa." Grid.Row="5" Grid.Column="2"/>
         </Grid>
         <WrapPanel Margin="10" ItemHeight="25" ItemWidth="150" HorizontalAlignment="Center">
             <Button Content="Рассчитать геометрию"  Command="{Binding Path=CalcGeoCommand}"/>
