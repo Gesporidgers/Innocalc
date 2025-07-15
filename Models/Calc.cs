@@ -1,9 +1,4 @@
 ﻿using Innocalc.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Innocalc.Models
 {
@@ -81,16 +76,16 @@ namespace Innocalc.Models
 		public double c_Air_Nusselt(double Cs, double beta_out, double Re_a, double n_p) => c1 * Cs * Cz * Math.Pow(beta_out, -0.5) * Math.Pow(Re_a, n_p);
 		public double c_Air_Heat_Transfer(double Nu_a, double d_h) => Nu_a * air_lambda / d_h;
 		public double c_Finning1(double Hn, float d, float b_n) => 1.28 * (Hn / d) * Math.Sqrt(b_n / Hn - 0.2);
-		public double c_Rib_Height(double d, double rho1) => .5 * d * (rho1 - 1) * (1 + .35*Math.Log(rho1));
+		public double c_Rib_Height(double d, double rho1) => .5 * d * (rho1 - 1) * (1 + .35 * Math.Log(rho1));
 		public double c_Complex_Char(double alpha_a, float beta) => Math.Sqrt((2 * alpha_a) / (lamda_liq * beta));
 		public double c_Rib_Efficiency(double m22, double h1) => Math.Tanh(m22 * h1) / (m22 * h1);
-		public double c_HeatTr_to_Finning(double alpha_a,double F_r, double F_br, double E)
+		public double c_HeatTr_to_Finning(double alpha_a, double F_r, double F_br, double E)
 		{
 			double a = F_r * E * phi / (F_r + F_br);
 			double b = 1 - (F_br / (F_r + F_br));
 			return alpha_a * (a + b);
 		}
-		public double c_K_out(double alpha1, float s, double betta, double alpha_mp) => 
+		public double c_K_out(double alpha1, float s, double betta, double alpha_mp) =>
 			1 / (
 			(1 / alpha1) + (s / lamda_liq) + (betta / alpha_mp));
 		public double c_F(double Wt, double K_out, double Dt) => Wt / (K_out * Dt);         // надо будет переименовать[

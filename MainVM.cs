@@ -1,10 +1,5 @@
 ﻿using Innocalc.Models;
 using Innocalc.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -309,7 +304,7 @@ namespace Innocalc
 			}
 		}
 
-		public ICommand CalcWCommand           
+		public ICommand CalcWCommand
 		{
 			get
 			{
@@ -325,11 +320,11 @@ namespace Innocalc
 		{
 			get
 			{
-				return calc_V ??= new RelayCommand(_ => W_air != 0, _ => Oil_v = calc.c_V_oil(W_air, T_oil_in, T_oil_out)); 
+				return calc_V ??= new RelayCommand(_ => W_air != 0, _ => Oil_v = calc.c_V_oil(W_air, T_oil_in, T_oil_out));
 			}
 		}
 
-		public ICommand CalcDtCommand         
+		public ICommand CalcDtCommand
 		{
 			get
 			{
@@ -337,7 +332,7 @@ namespace Innocalc
 			}
 		}
 
-		public ICommand CalcGeoCommand          
+		public ICommand CalcGeoCommand
 		{
 			get
 			{
@@ -375,7 +370,7 @@ namespace Innocalc
 					NN_row = NN / N11;
 					H_final = NN * S1 * .001 / N11;
 					Z_final = S2 * .001 * N11;
-					Delta_P = calc.c_Hydro_Resistance(Re_o, NN, N12, B * .001f, D_out * .001f, S * .001f,Vm1);
+					Delta_P = calc.c_Hydro_Resistance(Re_o, NN, N12, B * .001f, D_out * .001f, S * .001f, Vm1);
 					ResultsVisible = Visibility.Visible;
 				});
 			}
