@@ -118,10 +118,9 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width=".54*"/>
-                <ColumnDefinition Width=".5*"/>
-                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Button Content="Calc" Width="55" Command="{Binding Path=CalcWCommand}" Grid.Column="3" />
             <Label Content="Тепловой поток от воздуха" Grid.Column="0"/>
