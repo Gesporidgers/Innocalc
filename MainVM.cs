@@ -28,6 +28,7 @@ namespace Innocalc
 		private double _dT;
 		private float _s1;
 		private float _s2;
+		private float _eps2;
 		private double _l;
 		private int _nn;
 		private int _nn_row;
@@ -38,6 +39,7 @@ namespace Innocalc
 		private Visibility _resultsVisible = Visibility.Collapsed;
 
 		private TempCalcMethod _selected;
+		private Material _selectedMaterial;
 		private string _len;
 		private string _time;
 		private string _vol;
@@ -160,6 +162,15 @@ namespace Innocalc
 			{
 				_beta = value;
 				OnPropertyChanged(nameof(Beta));
+			}
+		}
+		public float Eps2
+		{
+			get => _eps2;
+			set
+			{
+				_eps2 = value;
+				OnPropertyChanged(nameof(Eps2));
 			}
 		}
 		public int U
@@ -299,6 +310,7 @@ namespace Innocalc
 		}
 
 		public List<TempCalcMethod> Methods => TempCalcMethod.GetMethods();
+		public List<Material> Materials => Material.GetMaterials();
 		public string[] Len => ["m.", "cm.", "mm."];
 		public string[] Time => ["hr.", "min.", "s."];
 		public string[] Vol => ["м³", "l."];
@@ -344,7 +356,15 @@ namespace Innocalc
 				OnPropertyChanged(nameof(Selected));
 			}
 		}
-
+		public Material SelectedMaterial
+		{
+			get => _selectedMaterial;
+			set
+			{
+				_selectedMaterial = value;
+				OnPropertyChanged(nameof(SelectedMaterial));
+			}
+		}
 
 		public ICommand CalcWCommand
 		{
@@ -388,7 +408,7 @@ namespace Innocalc
 					double Re_o = calc.c_Oil_Reynolds(Vm1, D_out * .001f, S * .001f);   // позже должно быть предупреждение о режиме течения
 					double Nuss = calc.c_Oil_Nusselt(Pr_o, Re_o);
 					double alpha_o = calc.c_Oil_HeatTransfer(Nuss, D_out * .001f, S * .001f);
-					double alpha_o2 = calc.c_Oil_HeatTransfer2(alpha_o);
+					double alpha_o2 = calc.c_Oil_HeatTransfer2(alpha_o,Eps2);
 					double Cs = Math.Pow((S1 - D_out) / (S2 - D_out), 0.1);
 					float air_s = H * .001f * B * .001f, b_n = N11 * S1, H_n = S2;
 					double live_sec = calc.c_Live_section(air_s, S1 * .001f, D_out * .001f, Beta * .001f, U * .001f);
@@ -405,10 +425,10 @@ namespace Innocalc
 					double air_alpha = calc.c_Air_Heat_Transfer(Nu_a, d_h * .001);
 					double rho1 = calc.c_Finning1(H_n, D_out, b_n);
 					double h1 = calc.c_Rib_Height(D_out * .001, rho1);
-					double m22 = calc.c_Complex_Char(air_alpha, Beta * .001f);
+					double m22 = calc.c_Complex_Char(air_alpha, Beta * .001f,SelectedMaterial.lambda);
 					double E = calc.c_Rib_Efficiency(m22, h1);
 					double alpha1_pr = calc.c_HeatTr_to_Finning(air_alpha, F_r * .001, F_br * .001, E);
-					double K_out = calc.c_K_out(alpha1_pr, S * .001f, Betta, alpha_o2);
+					double K_out = calc.c_K_out(alpha1_pr, S * .001f, Betta, alpha_o2,SelectedMaterial.lambda);
 					double Fport = calc.c_F(W_air, K_out, Dt);
 					L = Fport / (F_br * .001 + F_r * .001);
 					NN = (int)Math.Round(L / (B * .001));

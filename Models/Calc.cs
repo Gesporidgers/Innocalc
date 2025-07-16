@@ -12,11 +12,10 @@ namespace Innocalc.Models
 
 		const int air_pressure = 101; // кПа
 
-		float air_rho, air_c, eps1 = 1.23f, eps2 = .6f, air_lambda; // Поиск по файлу у eps1
+		float air_rho, air_c, eps1 = 1.23f, air_lambda; // Поиск по файлу у eps1
 		double wall_Prandtl, air_v;
 
 		const float phi = .85f;
-		const int lamda_liq = 92;
 
 		// Константы для пучка
 		const float c1 = .36f, Cz = 1f, m1 = .5f;
@@ -54,7 +53,7 @@ namespace Innocalc.Models
 			Math.Pow(oil_Prandtl, 0.43) *
 			Math.Pow((oil_Prandtl / wall_Prandtl), 0.25) * eps1;
 		public double c_Oil_HeatTransfer(double Nusselt, float d, float s) => (Nusselt * oil_lambda) / (d - 2 * s);
-		public double c_Oil_HeatTransfer2(double alpha_o) => alpha_o * eps2;
+		public double c_Oil_HeatTransfer2(double alpha_o,float eps2) => alpha_o * eps2;
 		public double c_Air_Prandtl() => (air_c * air_v * air_rho) / air_lambda;
 		public double c_Live_section(float air_s, float S1, float d, float beta, float u) => air_s *
 			(((S1 - d) * (u - beta)) /
@@ -77,7 +76,7 @@ namespace Innocalc.Models
 		public double c_Air_Heat_Transfer(double Nu_a, double d_h) => Nu_a * air_lambda / d_h;
 		public double c_Finning1(double Hn, float d, float b_n) => 1.28 * (Hn / d) * Math.Sqrt(b_n / Hn - 0.2);
 		public double c_Rib_Height(double d, double rho1) => .5 * d * (rho1 - 1) * (1 + .35 * Math.Log(rho1));
-		public double c_Complex_Char(double alpha_a, float beta) => Math.Sqrt((2 * alpha_a) / (lamda_liq * beta));
+		public double c_Complex_Char(double alpha_a, float beta, int lambda) => Math.Sqrt((2 * alpha_a) / (lambda * beta));
 		public double c_Rib_Efficiency(double m22, double h1) => Math.Tanh(m22 * h1) / (m22 * h1);
 		public double c_HeatTr_to_Finning(double alpha_a, double F_r, double F_br, double E)
 		{
@@ -85,9 +84,9 @@ namespace Innocalc.Models
 			double b = 1 - (F_br / (F_r + F_br));
 			return alpha_a * (a + b);
 		}
-		public double c_K_out(double alpha1, float s, double betta, double alpha_mp) =>
+		public double c_K_out(double alpha1, float s, double betta, double alpha_mp, int lambda) =>
 			1 / (
-			(1 / alpha1) + (s / lamda_liq) + (betta / alpha_mp));
+			(1 / alpha1) + (s / lambda) + (betta / alpha_mp));
 		public double c_F(double Wt, double K_out, double Dt) => Wt / (K_out * Dt);         // надо будет переименовать[
 		private double Ksi(double Re_o)
 		{
@@ -139,5 +138,32 @@ namespace Innocalc.Models
 			Math.Log((double)(t_oil_in - t_air_in) / (t_oil_out - t_air_out));
 		private static double CrossFlow(int t_air_in, int t_air_out, int t_oil_in, int t_oil_out) =>
 			(StraightFlow(t_air_in, t_air_out, t_oil_in, t_oil_out) + ReverseFlow(t_air_in, t_air_out, t_oil_in, t_oil_out)) / 2;
+	}
+	class Material
+	{
+		public string Name { get; set; }
+		public int lambda { get; set; }
+
+		public static List<Material> GetMaterials()
+		{
+			return new List<Material>
+			{
+				new Material
+				{
+					Name = "Железо",
+					lambda = 92
+				},
+				new Material
+				{
+					Name = "Сталь нержавеющая",
+					lambda = 15
+				},
+				new Material
+				{
+					Name = "Мельхиор",
+					lambda = 37
+				}
+			};
+		}
 	}
 }
