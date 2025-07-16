@@ -131,9 +131,10 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition />
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width=".54*"/>
+                <ColumnDefinition Width=".5*"/>
+                <ColumnDefinition Width="1.5*"/>
             </Grid.ColumnDefinitions>
             <Button Content="Calc" Width="55" Command="{Binding Path=CalcWCommand}" Grid.Column="3" />
             <Label Content="Тепловой поток от воздуха" Grid.Column="0"/>
@@ -147,7 +148,7 @@
                 <ComboBox ItemsSource="{Binding Path=Methods}" DisplayMemberPath="Name" SelectedValue="{Binding Path=Selected}" Width="150" Margin="35,0"/>
                 <Button Content="Сalc" Command="{Binding Path=CalcDtCommand}" Width="55"/>
             </WrapPanel>
-            <Label Content="kPa." Grid.Row="0" Grid.Column="2"/>
+            <Label Content="Pa." Grid.Row="0" Grid.Column="2"/>
             <Label Content="м³/ч" Grid.Row="1" Grid.Column="2"/>
             <Label Content="K." Grid.Row="2" Grid.Column="2"/>
         </Grid>
