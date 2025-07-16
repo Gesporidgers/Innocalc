@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="WpfMath" Version="2.1.0" />
-	  <Content Include="Data\*" CopyToOutputDirectory="PreserveNewest"/>
+	  <Content Include="Data\*" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>
