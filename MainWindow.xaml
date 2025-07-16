@@ -12,6 +12,19 @@
         <conv:CommaConverter x:Key="CommaConverter"/>
     </Window.Resources>
     <StackPanel>
+        <ToolBar>
+            <Label Content="Единицы измерения длины"/>
+            <ComboBox ItemsSource="{Binding Path=Len}"  Width="53" SelectedValue="{Binding LengthMeasure}"/>
+            <Separator/>
+            <Label Content="Единицы измерения времени"/>
+            <ComboBox Width="53" ItemsSource="{Binding Path=Time}" SelectedValue="{Binding TimeMeasure}"/>
+            <Separator/>
+            <Label Content="Единицы измерения объёма" />
+            <ComboBox Width="53" ItemsSource="{Binding Path=Vol}" SelectedValue="{Binding VolumeMeasure}"/>
+            <Separator/>
+            <!--<Label Content="Единицы измерения потока"/>
+            <ComboBox Width="53"/>-->
+        </ToolBar>
         <GroupBox Header="Среда" Margin="10">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -165,9 +178,9 @@
             <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Path=Z_final,Mode=OneWay}"/>
             <Label Content="Гидравлическое сопротивление по трубе" Grid.Row="5"/>
             <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Path=Delta_P,Mode=OneWay}"/>
-            <Label Content="m." Grid.Row="0" Grid.Column="2"/>
-            <Label Content="m." Grid.Row="3" Grid.Column="2"/>
-            <Label Content="m." Grid.Row="4" Grid.Column="2"/>
+            <Label Content="{Binding Path=LengthMeasure}" Grid.Row="0" Grid.Column="2"/>
+            <Label Content="{Binding Path=LengthMeasure}" Grid.Row="3" Grid.Column="2"/>
+            <Label Content="{Binding Path=LengthMeasure}" Grid.Row="4" Grid.Column="2"/>
             <Label Content="Pa." Grid.Row="5" Grid.Column="2"/>
         </Grid>
         <WrapPanel Margin="10" ItemHeight="25" ItemWidth="150" HorizontalAlignment="Center">

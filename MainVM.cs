@@ -1,6 +1,7 @@
 ﻿using Innocalc.Models;
 using Innocalc.Utility;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Innocalc
@@ -37,9 +38,14 @@ namespace Innocalc
 		private Visibility _resultsVisible = Visibility.Collapsed;
 
 		private TempCalcMethod _selected;
+		private string _len;
+		private string _time;
+		private string _vol;
 
 		Calc calc;
-
+		Models.LengthConverter conv1 = new Models.LengthConverter();
+		Models.TimeConverter conv2 = new Models.TimeConverter();
+		Models.VolumeConverter conv3 = new Models.VolumeConverter();
 
 		private ICommand calc_W;
 		private ICommand calc_V;
@@ -293,7 +299,42 @@ namespace Innocalc
 		}
 
 		public List<TempCalcMethod> Methods => TempCalcMethod.GetMethods();
+		public string[] Len => ["m.", "cm.", "mm."];
+		public string[] Time => ["hr.", "min.", "s."];
+		public string[] Vol => ["м³", "l."];
 
+		public string LengthMeasure
+		{
+			get => _len;
+			set
+			{
+				L = conv1.Convert(_len, value, L);
+				H_final = conv1.Convert(_len, value, H_final);
+				Z_final = conv1.Convert(_len, value, Z_final);
+				_len = value;
+				OnPropertyChanged(nameof(LengthMeasure));
+			}
+		}
+		public string TimeMeasure
+		{
+			get => _time;
+			set
+			{
+				Oil_v = conv2.Convert(_time, value, Oil_v);
+				_time = value;
+				OnPropertyChanged(nameof(TimeMeasure));
+			}
+		}
+		public string VolumeMeasure
+		{
+			get => _vol;
+			set
+			{
+				Oil_v = conv3.Convert(_vol, value, Oil_v);
+				_vol = value;
+				OnPropertyChanged(nameof(VolumeMeasure));
+			}
+		}
 		public TempCalcMethod Selected
 		{
 			get => _selected;
@@ -304,6 +345,7 @@ namespace Innocalc
 			}
 		}
 
+
 		public ICommand CalcWCommand
 		{
 			get
@@ -311,7 +353,7 @@ namespace Innocalc
 				return calc_W ??= new RelayCommand(_ => Air_v != 0, _ =>
 				{
 					calc = new Calc(T_air_out, T_air_in);
-					W_air = Math.Round(calc.c_W_air(Air_v, T_air_out, T_air_in) / 1000, 2);
+					W_air = Math.Round(calc.c_W_air(Air_v, T_air_out, T_air_in), 2);
 				});
 			}
 		}
@@ -332,14 +374,17 @@ namespace Innocalc
 			}
 		}
 
+
 		public ICommand CalcGeoCommand
 		{
 			get
 			{
 				return calc_Geometry ??= new RelayCommand(_ => Oil_v != 0 && D_out != 0 && N12 != 0 && N11 != 0 && S1 != 0 && S2 != 0 && S != 0 && Beta != 0 && U != 0 && H != 0 && Z != 0 && B != 0 && Dt != 0 && W_air != 0, _ =>
 				{
+					double Oil_v_src = conv2.Convert(TimeMeasure, "s.", Oil_v);
+					Oil_v_src = conv3.Convert(VolumeMeasure, "м³", Oil_v_src);
 					double Pr_o = calc.c_Oil_Prandtl();
-					double Vm1 = calc.c_Oil_Speed(Oil_v, N12, D_out * .001f, S * .001f);
+					double Vm1 = calc.c_Oil_Speed(Oil_v_src, N12, D_out * .001f, S * .001f);
 					double Re_o = calc.c_Oil_Reynolds(Vm1, D_out * .001f, S * .001f);   // позже должно быть предупреждение о режиме течения
 					double Nuss = calc.c_Oil_Nusselt(Pr_o, Re_o);
 					double alpha_o = calc.c_Oil_HeatTransfer(Nuss, D_out * .001f, S * .001f);
@@ -364,7 +409,7 @@ namespace Innocalc
 					double E = calc.c_Rib_Efficiency(m22, h1);
 					double alpha1_pr = calc.c_HeatTr_to_Finning(air_alpha, F_r * .001, F_br * .001, E);
 					double K_out = calc.c_K_out(alpha1_pr, S * .001f, Betta, alpha_o2);
-					double Fport = calc.c_F(W_air * 1000, K_out, Dt);
+					double Fport = calc.c_F(W_air, K_out, Dt);
 					L = Fport / (F_br * .001 + F_r * .001);
 					NN = (int)Math.Round(L / (B * .001));
 					NN_row = NN / N11;
@@ -374,6 +419,12 @@ namespace Innocalc
 					ResultsVisible = Visibility.Visible;
 				});
 			}
+		}
+		public MainVM()
+		{
+			_len = Len[0];
+			_time = Time[2];
+			_vol = Vol[0];
 		}
 	}
 }

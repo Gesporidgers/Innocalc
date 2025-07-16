@@ -1,16 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access">
+<ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Innocalc.MainVM" Collapsed="true">
-    <Position X="7.75" Y="5" Width="1.5" />
+    <Position X="4.5" Y="3.75" Width="1.5" />
     <Compartments>
       <Compartment Name="Private" Collapsed="true" />
     </Compartments>
+    <AssociationLine Name="conv1" Type="Innocalc.Models.LengthConverter" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6" Y="4.062" />
+        <Point X="6.375" Y="4.062" />
+        <Point X="6.375" Y="4.062" />
+        <Point X="7.5" Y="4.062" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="conv3" Type="Innocalc.Models.VolumeConverter" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.438" Y="4.441" />
+        <Point X="5.438" Y="5.875" />
+        <Point X="7.5" Y="5.875" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>kAACqAIBQAYSCIAQICLAIQyQEAdGBAMKDQAQTEeCYkM=</HashCode>
+      <HashCode>kAECqAIBwAZyCICQICrAIQyQmAdmBAMKDQARTEeCY0M=</HashCode>
       <FileName>MainVM.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="calc" />
+      <Field Name="conv1" />
+      <Field Name="conv2" />
+      <Field Name="conv3" />
       <Property Name="Selected" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
@@ -18,28 +36,28 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Innocalc.Models.Calc" Collapsed="true">
-    <Position X="11" Y="5" Width="1.5" />
+    <Position X="4.5" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>HAAAEBMIhACgAAAEAAJEAAwAAAEQBEACAiBRIA4EkSw=</HashCode>
       <FileName>Models\Calc.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Innocalc.Models.TempCalcMethod" Collapsed="true">
-    <Position X="11" Y="7" Width="1.5" />
+    <Position X="1.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QAAAAAAAAAAAACAAAAAAAIQAAAAAAAAAAAAAAAAAAUA=</HashCode>
       <FileName>Models\Calc.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Innocalc.Utility.FileSearcher" Collapsed="true">
-    <Position X="11" Y="6" Width="1.5" />
+    <Position X="4.5" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>Utility\FileSearcher.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Innocalc.Utility.BindHelper" Collapsed="true">
-    <Position X="4.75" Y="5" Width="1.5" />
+    <Position X="4.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Utility\BindHelper.cs</FileName>
@@ -47,10 +65,21 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Innocalc.MainWindow" Collapsed="true">
-    <Position X="7.75" Y="2.75" Width="1.5" />
+    <Position X="4.5" Y="1.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Public" Collapsed="true" />
     </Compartments>
+    <AssociationLine Name="vm" Type="Innocalc.MainVM" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6" Y="1.596" />
+        <Point X="6.344" Y="1.596" />
+        <Point X="6.344" Y="3.938" />
+        <Point X="6" Y="3.938" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.423" Y="0.102" />
+      </MemberNameLabel>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MainWindow.xaml.cs</FileName>
@@ -60,5 +89,36 @@
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
+  <Class Name="Innocalc.Models.LengthConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\LengthConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Innocalc.Models.TimeConverter" Collapsed="true">
+    <Position X="7.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\TimeConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Innocalc.Models.VolumeConverter" Collapsed="true">
+    <Position X="7.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\VolumeConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Innocalc.Utility.IConverter" Collapsed="true">
+    <Position X="9.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utility\IConverter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

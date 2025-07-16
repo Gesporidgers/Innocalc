@@ -40,7 +40,7 @@ namespace Innocalc.Models
 		}
 
 		public double c_W_air(int V, int t_air_out, int t_air_in) => (V / 3600.0) * air_rho * ((t_air_out + 273) - (t_air_in + 273)) * air_c;
-		public double c_V_oil(double W, int t_oil_in, int t_oil_out) => W * 1000 /
+		public double c_V_oil(double W, int t_oil_in, int t_oil_out) => W /
 			(oil_rho * oil_c * ((t_oil_in + 273) - (t_oil_out + 273)));
 		public double c_Oil_Prandtl()
 		{
