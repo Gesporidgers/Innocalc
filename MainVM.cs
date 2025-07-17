@@ -45,9 +45,9 @@ namespace Innocalc
 		private string _vol;
 
 		Calc calc;
-		Models.LengthConverter conv1 = new Models.LengthConverter();
-		Models.TimeConverter conv2 = new Models.TimeConverter();
-		Models.VolumeConverter conv3 = new Models.VolumeConverter();
+		IConverter conv1 = new Models.LengthConverter();
+		IConverter conv2 = new Models.TimeConverter();
+		IConverter conv3 = new Models.VolumeConverter();
 
 		private ICommand calc_W;
 		private ICommand calc_V;
@@ -401,8 +401,9 @@ namespace Innocalc
 			{
 				return calc_Geometry ??= new RelayCommand(_ => Oil_v != 0 && D_out != 0 && N12 != 0 && N11 != 0 && S1 != 0 && S2 != 0 && S != 0 && Beta != 0 && U != 0 && H != 0 && Z != 0 && B != 0 && Dt != 0 && W_air != 0, _ =>
 				{
+					LengthMeasure = "m."; VolumeMeasure = "м³"; TimeMeasure = "s.";
 					double Oil_v_src = conv2.Convert(TimeMeasure, "s.", Oil_v);
-					Oil_v_src = conv3.Convert(VolumeMeasure, "м³", Oil_v_src);
+					Oil_v_src = conv3.Convert(VolumeMeasure, "м³", Oil_v_src); // все единицы измерения надо сбросить
 					double Pr_o = calc.c_Oil_Prandtl();
 					double Vm1 = calc.c_Oil_Speed(Oil_v_src, N12, D_out * .001f, S * .001f);
 					double Re_o = calc.c_Oil_Reynolds(Vm1, D_out * .001f, S * .001f);   // позже должно быть предупреждение о режиме течения

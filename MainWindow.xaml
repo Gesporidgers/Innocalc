@@ -102,13 +102,13 @@
                 <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=H, Mode=TwoWay}"/>
                 <Label Content="Ширина (мм): " Grid.Row="1" HorizontalAlignment="Right"/>
                 <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=B, Mode=TwoWay}"/>
-                <Label Content="Глубина (мм): " Grid.Row="2" HorizontalAlignment="Right"/>
-                <Label Content="Жестко" FontWeight="SemiBold" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Label Content="Глубина (мм): " Grid.Row="3" HorizontalAlignment="Right"/>
+                <Label Content="Жестко" FontWeight="SemiBold" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Z, Mode=TwoWay}"/>
                 <Label Content="Материал" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right"/>
                 <ComboBox Grid.Column="1" Grid.Row="4" ItemsSource="{Binding Path=Materials}" DisplayMemberPath="Name" SelectedValue="{Binding SelectedMaterial}"/>
                 <controls:FormulaControl Formula="\varepsilon_2" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,3,0"/>
                 <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Path=Eps2,Mode=TwoWay, Converter={StaticResource CommaConverter}}"/>
-                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Z, Mode=TwoWay}"/>
                 <Label Content="Наружный диаметр трубки (мм): " Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right"/>
                 <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding Path=D_out, Mode=TwoWay}"/>
                 <Label Content="Толщина трубки (мм): " Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right"/>
