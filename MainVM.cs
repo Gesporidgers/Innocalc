@@ -36,6 +36,12 @@ namespace Innocalc
 		private double _z_final;
 		private double _delta_p;
 
+		// Oil constants
+		private float _cpm;
+		private float _vm;
+		private float _rhom;
+		private float _lambdam;
+
 		private Visibility _resultsVisible = Visibility.Collapsed;
 
 		private TempCalcMethod _selected;
@@ -299,6 +305,42 @@ namespace Innocalc
 				OnPropertyChanged(nameof(Delta_P));
 			}
 		}
+		public float Cpm {
+			get => _cpm;
+			set
+			{
+				_cpm = value;
+				OnPropertyChanged(nameof(Cpm));
+			}
+		}
+		public float Vm
+		{
+			get => _vm;
+			set
+			{
+				_vm = value;
+				OnPropertyChanged(nameof(Vm));
+			}
+		}
+		public float RhoM
+		{
+			get => _rhom;
+			set
+			{
+				_rhom = value;
+				OnPropertyChanged(nameof(RhoM));
+			}
+		}
+		public float LambdaM
+		{
+			get => _lambdam;
+			set
+			{
+				_lambdam = value;
+				OnPropertyChanged(nameof(LambdaM));
+			}
+		}
+
 		public Visibility ResultsVisible
 		{
 			get => _resultsVisible;
@@ -370,7 +412,7 @@ namespace Innocalc
 		{
 			get
 			{
-				return calc_W ??= new RelayCommand(_ => Air_v != 0, _ =>
+				return calc_W ??= new RelayCommand(_ => Air_v != 0, _ =>		// Сюда пойдут изменяемые константы масла
 				{
 					calc = new Calc(T_air_out, T_air_in);
 					W_air = Math.Round(calc.c_W_air(Air_v, T_air_out, T_air_in), 2);

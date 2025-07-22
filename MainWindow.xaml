@@ -199,7 +199,7 @@
                 </StackPanel>
             </TabItem>
             <TabItem Header="Константы для масла">
-                <local:UserControl1 Cpm="4.5" Vm="1.38" RhoM="875"/>
+                <local:UserControl1 Cpm="{Binding Cpm, Mode=TwoWay}" Vm="{Binding Vm, Mode=TwoWay}" RhoM="{Binding RhoM,Mode=TwoWay}" LambdaM="{Binding LambdaM,Mode=TwoWay}"/>
             </TabItem>
         </TabControl>
         
