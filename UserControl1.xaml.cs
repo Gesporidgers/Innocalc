@@ -21,12 +21,15 @@ namespace Innocalc
 	/// </summary>
 	public partial class UserControl1 : UserControl
 	{
-		
+
 		public UserControl1()
 		{
 			InitializeComponent();
 			this.DataContext = this;
 		}
-		public float Cpm {  get; set; }
+		public float Cpm { get; set; }
+		public float Vm  { get; set; }
+		public float RhoM { get; set; }
+		public float LambdaM { get; set; }
 	}
 }
