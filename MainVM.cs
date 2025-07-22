@@ -414,7 +414,7 @@ namespace Innocalc
 			{
 				return calc_W ??= new RelayCommand(_ => Air_v != 0, _ =>		// Сюда пойдут изменяемые константы масла
 				{
-					calc = new Calc(T_air_out, T_air_in);
+					calc = new Calc(T_air_out, T_air_in);						// Измени конструктор чтобы принимать константы масла
 					W_air = Math.Round(calc.c_W_air(Air_v, T_air_out, T_air_in), 2);
 				});
 			}
