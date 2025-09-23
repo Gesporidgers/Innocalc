@@ -43,6 +43,7 @@ namespace Innocalc
 		private string _len;
 		private string _time;
 		private string _vol;
+		private string _v_measure;
 
 		Calc calc;
 		IConverter conv1 = new Models.LengthConverter();
@@ -335,6 +336,7 @@ namespace Innocalc
 				Oil_v = conv2.Convert(_time, value, Oil_v);
 				_time = value;
 				OnPropertyChanged(nameof(TimeMeasure));
+				VMeasureString = VolumeMeasure + '/' + value;
 			}
 		}
 		public string VolumeMeasure
@@ -345,6 +347,16 @@ namespace Innocalc
 				Oil_v = conv3.Convert(_vol, value, Oil_v);
 				_vol = value;
 				OnPropertyChanged(nameof(VolumeMeasure));
+				VMeasureString = value + '/' + TimeMeasure;
+			}
+		}
+		public string VMeasureString
+		{
+			get => _v_measure;
+			set
+			{
+				_v_measure = value;
+				OnPropertyChanged(nameof(VMeasureString));
 			}
 		}
 		public TempCalcMethod Selected
@@ -443,9 +455,9 @@ namespace Innocalc
 		}
 		public MainVM()
 		{
-			_len = Len[0];
-			_time = Time[2];
-			_vol = Vol[0];
+			LengthMeasure = Len[0];
+			TimeMeasure = Time[2];
+			VolumeMeasure = Vol[0];
 		}
 	}
 }

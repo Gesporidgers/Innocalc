@@ -154,7 +154,7 @@
                 <Button Content="Сalc" Command="{Binding Path=CalcDtCommand}" Width="55"/>
             </WrapPanel>
             <Label Content="Pa." Grid.Row="0" Grid.Column="2"/>
-            <Label Content="м³/ч" Grid.Row="1" Grid.Column="2"/>
+            <Label Content="{Binding VMeasureString}" Grid.Row="1" Grid.Column="2"/>
             <Label Content="K." Grid.Row="2" Grid.Column="2"/>
         </Grid>
         <Separator Margin="5"/>

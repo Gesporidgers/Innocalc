@@ -12,7 +12,6 @@
   <ItemGroup>
     <PackageReference Include="SharpProp" Version="7.6.0" />
     <PackageReference Include="WpfMath" Version="2.1.0" />
-	  <Content Include="Data\*" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>
