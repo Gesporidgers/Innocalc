@@ -1,4 +1,7 @@
 ﻿using Innocalc.Utility;
+using SharpProp;
+using UnitsNet.NumberExtensions.NumberToPressure;
+using UnitsNet.NumberExtensions.NumberToTemperature;
 
 namespace Innocalc.Models
 {
@@ -12,8 +15,8 @@ namespace Innocalc.Models
 
 		const int air_pressure = 101; // кПа
 
-		float air_rho, air_c, eps1 = 1.23f, air_lambda; // Поиск по файлу у eps1
-		double wall_Prandtl, air_v;
+		float eps1 = 1.23f; // Поиск по файлу у eps1
+		double wall_Prandtl, air_v, air_rho, air_c, air_lambda;
 
 		const float phi = .85f;
 
@@ -23,18 +26,20 @@ namespace Innocalc.Models
 
 		public Calc(int t_air_out, int t_air_in)
 		{
-			float din = FileSearcher.Search(t_air_in, "air_density.json");
-			float dout = FileSearcher.Search(t_air_out, "air_density.json");
-			float vin = FileSearcher.Search(t_air_in, "air_viscosity.json");
-			float vout = FileSearcher.Search(t_air_out, "air_viscosity.json");
-			float cin = FileSearcher.Search(t_air_in, "air_thermal_capacity.json");
-			float cout = FileSearcher.Search(t_air_in, "air_thermal_capacity.json");
-			float lin = FileSearcher.Search(t_air_in, "air_thermal_conductivity.json");
-			float lout = FileSearcher.Search(t_air_out, "air_thermal_conductivity.json");
-
+			IFluid air_in = new Fluid(FluidsList.Air).WithState(Input.Temperature(t_air_in.DegreesCelsius()),Input.Pressure(101.Kilopascals()));
+			IFluid air_out = new Fluid(FluidsList.Air).WithState(Input.Temperature(t_air_out.DegreesCelsius()),Input.Pressure(101.Kilopascals()));
+			double din = air_in.Density.Value;
+			double dout = air_out.Density.Value;
+			double vin = air_in.KinematicViscosity.Value.SquareMetersPerSecond;
+			double vout = air_out.KinematicViscosity.Value.SquareMetersPerSecond;
+			double cin = air_in.SpecificHeat.JoulesPerKilogramKelvin;
+			double cout = air_out.SpecificHeat.JoulesPerKilogramKelvin;
+			double lin = air_in.Conductivity.Value.WattsPerMeterKelvin;
+			double lout = air_out.Conductivity.Value.WattsPerMeterKelvin;
+			
 			air_rho = (din + dout) / 2;
-			air_v = ((vin + vout) / 2) * .00001f;
-			air_c = ((cin + cout) / 2) * 1000;
+			air_v = ((vin + vout) / 2);
+			air_c = ((cin + cout) / 2);
 			air_lambda = (lin + lout) / 2;
 		}
 
